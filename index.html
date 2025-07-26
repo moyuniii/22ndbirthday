@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ulang Tahun</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <style>
+    .fade-page {
+      opacity: 0;
+      animation: fadeInPage 2s ease forwards;
+    }
+    @keyframes fadeInPage {
+      to {
+        opacity: 1;
+      }
+    }
+    .anim-tulisan {
+      animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink-caret {
+      0%, 100% { border-color: transparent }
+      50% { border-color: black }
+    }
+  </style>
+</head>
+<body class="fade-page">
+  <div id="particles-js"></div>
+
+  <audio id="bgm" autoplay loop playsinline>
+    <source src="lagu/bestfriend.mp3" type="audio/mpeg" />
+  </audio>
+  
+  <button id="playButton" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">🔊 Play Musik</button>
+
+  <audio id="dingSound">
+  <source src="lagu/Ding.mp3" type="audio/mpeg" />
+</audio>
+
+<button onclick="playDingAndGo()">Buka Surat Rahasia 💌</button>
+
+<script>
+    function playDingAndGo() {
+  const ding = document.getElementById("dingSound");
+  ding.play();
+  setTimeout(() => {
+    window.location.href = "surat.html";
+  }, 800); // Delay sesuai durasi suara ding (~0.8 detik)
+}
+</script>
+
+  <header class="hero" data-aos="fade-down">
+    <h1 class="anim-tulisan">Selamat Ulang Tahun 🎉</h1>
+    <p class="sub">Untuk Septya Nanda E.P</p>
+  </header>
+
+  <section class="countdown" data-aos="zoom-in">
+    <p>Hitung mundur ke hari spesial:</p>
+    <div id="timer">00 Hari 00 Jam 00 Menit</div>
+  </section>
+
+  <section class="story" data-aos="fade-up">
+    <h2 class="anim-tulisan">Bab 1: Pertemuan Pertama</h2>
+    <p>Hari itu langit cerah... (isi cerita)</p>
+    <img src="img/bab1.jpeg" alt="Ilustrasi Pertemuan" class="ilustrasi" />
+  </section>
+
+  <section class="story" data-aos="fade-up">
+    <h2 class="anim-tulisan">Bab 2: Cerita Kita</h2>
+    <p>Kita mulai dekat sejak itu... (isi cerita)</p>
+    <img src="img/bab2.jpeg" alt="Ilustrasi Cerita" class="ilustrasi" />
+  </section>
+
+  <section class="story" data-aos="fade-up">
+    <h2 class="anim-tulisan">Bab 3: Harapan</h2>
+    <p>Semoga tahun ini membawa banyak kebaikan... (isi cerita)</p>
+    <img src="img/bab3.jpeg" alt="Ilustrasi Harapan" class="ilustrasi" />
+  </section>
+
+  <div class="surat-rahasia" data-aos="zoom-in">
+    <button onclick="window.location.href='surat.html'">Buka Surat Rahasia 💌</button>
+  </div>
+
+  <div class="quote" data-aos="fade-in">
+    "Kamu adalah hadiah terindah dalam hidup ini."
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    AOS.init();
+
+    // Countdown logic
+    const targetDate = new Date("2025-07-27").getTime();
+    const timer = document.getElementById("timer");
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      timer.innerHTML = `${days} Hari ${hours} Jam ${minutes} Menit`;
+    }, 1000);
+
+    // Particles.js
+    particlesJS.load('particles-js', 'particles.json');
+
+    // Audio control
+    const bgm = document.getElementById("bgm");
+    const playButton = document.getElementById("playButton");
+    playButton.addEventListener("click", () => {
+      if (bgm.paused) {
+        bgm.play();
+        playButton.textContent = "🔇 Pause Musik";
+      } else {
+        bgm.pause();
+        playButton.textContent = "🔊 Play Musik";
+      }
+    });
+  </script>
+</body>
+</html>
